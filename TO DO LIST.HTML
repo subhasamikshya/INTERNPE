@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List App</title>
+    <style>
+        /* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to right, #ffecd2, #fcb69f);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 90%;
+    max-width: 500px;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    color: #333;
+    transition: transform 0.3s ease-in-out;
+}
+
+h1:hover {
+    transform: scale(1.1);
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 2px solid #fcb69f;
+    border-radius: 5px 0 0 5px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+input[type="text"]:focus {
+    outline: none;
+    border-color: #ff6b6b;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #ff6b6b;
+    color: #fff;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease-in-out;
+}
+
+button:hover {
+    background-color: #ff4757;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+li {
+    background: #ffe3e3;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+li:hover {
+    transform: scale(1.02);
+    background: #ffcccc;
+}
+
+.delete {
+    background: #ff6b6b;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete:hover {
+    background: #ff4757;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <div class="input-group">
+            <input type="text" id="taskInput" placeholder="Enter a new task">
+            <button onclick="addTask()">Add Task</button>
+        </div>
+        <ul id="taskList">
+            <!-- Tasks will be dynamically added here -->
+        </ul>
+    </div>
+    <script>
+        function addTask() {
+    var taskInput = document.getElementById("taskInput");
+    var taskList = document.getElementById("taskList");
+
+    if (taskInput.value.trim() === "") {
+        alert("Please enter a task.");
+        return;
+    }
+
+    var listItem = document.createElement("li");
+    listItem.innerHTML = taskInput.value;
+
+    var deleteButton = document.createElement("span");
+    deleteButton.innerHTML = "❌";
+    deleteButton.className = "delete";
+    deleteButton.onclick = function() {
+        listItem.classList.add("fade-out");
+        setTimeout(() => {
+            listItem.remove();
+        }, 500); // Match this duration with the CSS animation duration
+    };
+
+    listItem.appendChild(deleteButton);
+    taskList.appendChild(listItem);
+
+    taskInput.value = "";
+}
+
+    </script>
+</body>
+</html>
